@@ -38,8 +38,6 @@ def run_length(text):
     #圧縮された文字列を返す
     return compression_text
     
-    
-    
 if __name__ == "__main__":
     
     # テキストを引数で取得する
