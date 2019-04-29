@@ -97,6 +97,7 @@ def marubatu_game():
     # coordinate_view(coordinate_list, candidates)
 
     turn_user = 0
+    turn_count = 0
     while True:
         if turn_user == 0:
             try:
@@ -125,6 +126,7 @@ def marubatu_game():
                 print(err_message)
                 continue
             turn_user = 1
+            turn_count += 1
 
         else:
             try:
@@ -153,6 +155,11 @@ def marubatu_game():
                 print(err_message)
                 continue
             turn_user = 0
+            turn_count += 1
+
+        if turn_count == 9:
+            print("引き分けです")
+            break
 
 
 marubatu_game()
