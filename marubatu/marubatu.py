@@ -57,6 +57,7 @@ def check_decision(coordinate_map):
     # 4+16+64=84
 
     print('coordinate_map : ', coordinate_map)
+    print('decision_coordinates : ', decision_coordinates)
 
     # リスト内を全て足して、decision_coordinates内に
     # total_valがあるかを判定する
