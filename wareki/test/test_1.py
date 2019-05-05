@@ -38,24 +38,19 @@ class TestSuccessWareki(unittest.TestCase):
     def test_heisei(self):
         """test method for heisei of convert_to_wareki
         """
-        # year = 2019
-        # month = 4
-        # day = 30
-        # wareki = convert_to_wareki(year, month, day)
-        # wareki_str = '平成31年'
-        # self.assertEqual(wareki, wareki_str)
-
         heisei_start = self.wareki_dict['平成']
-        print(heisei_start.year)
-        # for year in range(int(heisei_start.year), 2030):
-        #     month = 5
-        #     day = 1
+        reiwa_start = self.wareki_dict['令和']
+        # print(heisei_start.year)
+        # print(reiwa_start.year)
+        for year in range(int(heisei_start.year), int(reiwa_start.year)+1):
+            month = 4
+            day = 1
 
-        #     wareki = convert_to_wareki(year, month, day)
-        #     wareki_str = '令和' + str(year-2018) + '年'
-        #     if (year-2018) is 1:
-        #         wareki_str = '令和元年'
-        #     self.assertEqual(wareki, wareki_str)
+            wareki = convert_to_wareki(year, month, day)
+            wareki_str = '平成' + str(year-(int(heisei_start.year)-1)) + '年'
+            if (year-(int(heisei_start.year)-1)) is 1:
+                wareki_str = '平成元年'
+            self.assertEqual(wareki, wareki_str)
 
     def test_showa(self):
         """test method for showa of convert_to_wareki
