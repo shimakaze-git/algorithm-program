@@ -26,8 +26,8 @@ class TestSuccessWareki(unittest.TestCase):
         """
         reiwa_start = self.wareki_dict['令和']
         for year in range(int(reiwa_start.year), 2030):
-            month = 5
-            day = 1
+            month = reiwa_start.month
+            day = reiwa_start.day
 
             wareki = convert_to_wareki(year, month, day)
             wareki_str = '令和' + str(year-2018) + '年'
@@ -40,11 +40,9 @@ class TestSuccessWareki(unittest.TestCase):
         """
         heisei_start = self.wareki_dict['平成']
         reiwa_start = self.wareki_dict['令和']
-        # print(heisei_start.year)
-        # print(reiwa_start.year)
         for year in range(int(heisei_start.year), int(reiwa_start.year)+1):
-            month = 4
-            day = 1
+            month = heisei_start.month
+            day = heisei_start.day
 
             wareki = convert_to_wareki(year, month, day)
             wareki_str = '平成' + str(year-(int(heisei_start.year)-1)) + '年'
@@ -55,35 +53,42 @@ class TestSuccessWareki(unittest.TestCase):
     def test_showa(self):
         """test method for showa of convert_to_wareki
         """
-        year = 2019
-        month = 4
-        day = 30
-        wareki = convert_to_wareki(year, month, day)
-        wareki_str = '平成31年'
-        self.assertEqual(wareki, wareki_str)
+        showa_start = self.wareki_dict['昭和']
+        heisei_start = self.wareki_dict['平成']
+        for year in range(int(showa_start.year), int(heisei_start.year)):
+            month = showa_start.month
+            day = showa_start.day
+
+            wareki = convert_to_wareki(year, month, day)
+            wareki_str = '昭和' + str(year-(int(showa_start.year)-1)) + '年'
+            if (year-(int(showa_start.year)-1)) is 1:
+                wareki_str = '昭和元年'
+            self.assertEqual(wareki, wareki_str)
 
     def test_other(self):
         """test method for other of convert_to_wareki
         """
-        year = 2019
-        month = 4
-        day = 30
-        wareki = convert_to_wareki(year, month, day)
-        wareki_str = '平成31年'
-        self.assertEqual(wareki, wareki_str)
-
-    # print('西暦2020年4月1日は、', convert_to_wareki(2020, 4, 1), sep='')
-    # print('西暦2019年5月1日は、', convert_to_wareki(2019, 5, 1), sep='')
-    # print('西暦2019年4月30日は、', convert_to_wareki(2019, 4, 30), sep='')
-    # print('西暦1989年1月8日は、', convert_to_wareki(1989, 1, 8), sep='')
-    # print('西暦1989年1月7日は、', convert_to_wareki(1989, 1, 7), sep='')
-    # print('西暦1974年5月5日は、', convert_to_wareki(1974, 5, 5), sep='')
-    # print('西暦1926年12月25日は、', convert_to_wareki(1926, 12, 25), sep='')
-    # print('西暦1926年12月24日は、', convert_to_wareki(1926, 12, 24), sep='')
+        showa_start = self.wareki_dict['昭和']
+        for year in range(
+            showa_start.year-1,
+            showa_start.year - int(str(showa_start.year)[2:])-1,
+            -1
+        ):
+            month = showa_start.month
+            day = showa_start.day
+            wareki = convert_to_wareki(year, month, day)
+            self.assertEqual(wareki, "昭和以前")
 
 
 class TestFailedWareki(unittest.TestCase):
-    pass
+    def test_out_of_range_month(self):
+        year = 2019
+        day = 1
+        for month in range(13, 20):
+            with self.assertRaises(ValueError):
+                wareki = convert_to_wareki(year, month, day)
+                # periodic_table('Ubn')
+                print(wareki)
 
 
 if __name__ == "__main__":

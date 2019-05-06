@@ -50,7 +50,6 @@ def convert_to_wareki(y, m, d):
         return era_str + str(year) + '年'
     except ValueError as e:
         raise e
-    return None
 
 
 def main():
@@ -62,6 +61,7 @@ def main():
     print('西暦1974年5月5日は、', convert_to_wareki(1974, 5, 5), sep='')
     print('西暦1926年12月25日は、', convert_to_wareki(1926, 12, 25), sep='')
     print('西暦1926年12月24日は、', convert_to_wareki(1926, 12, 24), sep='')
+    print('西暦1989年4月1日は、', convert_to_wareki(1989, 4, 1), sep='')
 
 
 if __name__ == '__main__':
