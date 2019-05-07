@@ -81,14 +81,32 @@ class TestSuccessWareki(unittest.TestCase):
 
 
 class TestFailedWareki(unittest.TestCase):
+
     def test_out_of_range_month(self):
+        """
+        """
         year = 2019
         day = 1
-        for month in range(13, 20):
-            with self.assertRaises(ValueError):
-                wareki = convert_to_wareki(year, month, day)
-                # periodic_table('Ubn')
-                print(wareki)
+        start_month = 13
+        for month in range(start_month, 20):
+            with self.assertRaises(ValueError) as er:
+                convert_to_wareki(year, month, day)
+
+        self.assertIsInstance(er.exception, ValueError)
+        self.assertEqual(er.exception.args[0], 'month must be in 1..12')
+
+    def test_out_of_range_day(self):
+        """
+        """
+        year = 2019
+        for month in range(1, 13):
+            for day in range(32, 50):
+                with self.assertRaises(ValueError) as er:
+                    convert_to_wareki(year, month, day)
+
+                err_mes = 'day is out of range for month'
+                self.assertIsInstance(er.exception, ValueError)
+                self.assertEqual(er.exception.args[0], err_mes)
 
 
 if __name__ == "__main__":
